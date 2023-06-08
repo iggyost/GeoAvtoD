@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="69c145c107454e3a87e055f900eaf081" Name="Diagram1">
+        <EntityTypeShape EntityType="GeoAvtoDbModel.CardTypes" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="GeoAvtoDbModel.Searches" Width="1.5" PointX="3" PointY="6.625" />
+        <EntityTypeShape EntityType="GeoAvtoDbModel.sysdiagrams" Width="1.5" PointX="5.75" PointY="1.25" />
+        <EntityTypeShape EntityType="GeoAvtoDbModel.Users" Width="1.5" PointX="0.75" PointY="3.5" />
+        <AssociationConnector Association="GeoAvtoDbModel.FK_Searches_Users" />
+        <EntityTypeShape EntityType="GeoAvtoDbModel.Cards" Width="1.5" PointX="3" PointY="1.875" />
+        <AssociationConnector Association="GeoAvtoDbModel.FK_Cards_CardTypes" />
+        <AssociationConnector Association="GeoAvtoDbModel.FK_Cards_Users" />
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

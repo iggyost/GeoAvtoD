@@ -1,0 +1,222 @@
+﻿<Window x:Class="GeoAvto.View.Windows.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GeoAvto.View.Windows"
+        xmlns:gmaps="clr-namespace:GMap.NET.WindowsPresentation;assembly=GMap.NET.WindowsPresentation"
+        mc:Ignorable="d"
+        WindowState="Maximized"
+        Width="1920" Height="1080"
+        MinWidth="1280" MinHeight="720" Loaded="Window_Loaded">
+    <Grid>
+        <gmaps:GMapControl Name="gMapControl1"
+                           IgnoreMarkerOnMouseWheel="True"></gmaps:GMapControl>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="500"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                
+                <Border Margin="16"
+                        Background="#BA504C4C"
+                        CornerRadius="24"
+                        Name="routeOpened"
+                        Opacity="0">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="96"></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="96"></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Style="{StaticResource headerTextStyle}"
+                                       Grid.Column="1">Маршрут</TextBlock>
+                        </Grid>
+                        <Grid Grid.Row="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="64"></RowDefinition>
+                                <RowDefinition Height="8"></RowDefinition>
+                                <RowDefinition Height="48"></RowDefinition>
+                                <RowDefinition Height="8"></RowDefinition>
+                                <RowDefinition Height="48"></RowDefinition>
+                                <RowDefinition Height="8"></RowDefinition>
+                                <RowDefinition Height="48"></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <TextBlock Style="{StaticResource mediumTextStyle}"
+                                       HorizontalAlignment="Left"
+                                       VerticalAlignment="Bottom"
+                                       Margin="16 0">От</TextBlock>
+                            <TextBox Style="{StaticResource defaultTbStyle}"
+                                     Name="address1Tb"
+                                     Grid.Row="2"
+                                     VerticalAlignment="Top"
+                                     Margin="16 0"></TextBox>
+                            <TextBlock Style="{StaticResource mediumTextStyle}"
+                                       HorizontalAlignment="Left"
+                                       VerticalAlignment="Bottom"
+                                       Margin="16 0"
+                                       Grid.Row="4">До</TextBlock>
+                            <Border Width="40"
+                                    HorizontalAlignment="Right"
+                                    Margin="24 0"
+                                    Height="40"
+                                    Grid.Row="4"
+                                    Background="#BA504C4C"
+                                    CornerRadius="8"
+                                    Cursor="Hand"
+                                    Name="swapBorder" MouseUp="swapBorder_MouseUp">
+                                <Image Source="/Resources/Images/icons8-swap-96.png"></Image>
+                            </Border>
+                            <TextBox Style="{StaticResource defaultTbStyle}"
+                                     Name="address2Tb"
+                                     Grid.Row="6"
+                                     VerticalAlignment="Top"
+                                     Margin="16 0"></TextBox>
+                            <Grid Grid.Row="7"
+                                  Margin="16">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition></ColumnDefinition>
+                                        <ColumnDefinition Width="32"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Style="{StaticResource regularTblStyle}"
+                                               FontSize="18"
+                                               HorizontalAlignment="Center">Быстрый</TextBlock>
+                                    <Viewbox Grid.Column="1">
+                                        <RadioButton GroupName="profileType"
+                                                     Name="fastRouteRbtn"></RadioButton>
+                                    </Viewbox>
+                                </Grid>
+                                <Grid Grid.Column="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition></ColumnDefinition>
+                                        <ColumnDefinition Width="32"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Style="{StaticResource regularTblStyle}"
+                                               FontSize="18"
+                                               HorizontalAlignment="Center">Короткий</TextBlock>
+                                    <Viewbox Grid.Column="1">
+                                        <RadioButton GroupName="profileType"
+                                                     Name="shortRouteRbtn"></RadioButton>
+                                    </Viewbox>
+                                </Grid>
+                            </Grid>
+                            <Button Grid.Row="8" 
+                                    Background="#FF171717"
+                                    VerticalAlignment="Top"
+                                    Name="searchBtn" Click="searchBtn_Click">Найти</Button>
+                        </Grid>
+                    </Grid>
+                </Border>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Border Width="96"
+                            Height="96"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Top"
+                            Margin="16"
+                            Background="#BA504C4C"
+                            CornerRadius="24"
+                            Cursor="Hand"
+                            Name="routeBorder" MouseUp="routeBorder_MouseUp">
+                        <Image Source="/Resources/Images/icons8-route-64.png"
+                               Stretch="Fill"
+                               Margin="12"
+                               Name="routeImg"></Image>
+                    </Border>
+                </Grid>
+            </Grid>
+            <Border Grid.Column="1"
+                    Height="120"
+                    VerticalAlignment="Top"
+                    Margin="32 16 176 0"
+                    Background="#BA504C4C"
+                    CornerRadius="16">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="48"></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition Width="256"></ColumnDefinition>
+                        <ColumnDefinition Width="256"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Style="{StaticResource mediumTextStyle}">Отправление</TextBlock>
+                    <TextBlock Style="{StaticResource mediumTextStyle}"
+                               Grid.Column="1">Прибытие</TextBlock>
+                    <TextBlock Style="{StaticResource mediumTextStyle}"
+                               Grid.Column="2">Расстояние</TextBlock>
+                    <TextBlock Style="{StaticResource mediumTextStyle}"
+                               Grid.Column="3">Время</TextBlock>
+
+                    <TextBlock Style="{StaticResource regularTblStyle}"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Top"
+                               TextWrapping="Wrap"
+                               Grid.Row="1"
+                               Name="departureTbl"></TextBlock>
+                    <TextBlock Style="{StaticResource regularTblStyle}"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Top"
+                               TextWrapping="Wrap"
+                               Grid.Row="1"
+                               Grid.Column="1"
+                               Name="arrivalTbl"></TextBlock>
+                    <TextBlock Style="{StaticResource mediumTextStyle}"
+                               Grid.Row="1"
+                               Grid.Column="2"
+                               Name="distanceTbl"></TextBlock>
+                    <TextBlock Style="{StaticResource mediumTextStyle}"
+                               Grid.Row="1"
+                               Grid.Column="3"
+                               Name="timeTbl"></TextBlock>
+                </Grid>
+            </Border>
+            <StackPanel Grid.Column="1"
+                        VerticalAlignment="Top"
+                        HorizontalAlignment="Right"
+                        Margin="16">
+                <Border Grid.Column="1"
+                    Width="72"
+                    Height="72"
+                    Background="#BA504C4C"
+                    CornerRadius="16"
+                    Cursor="Hand"
+                    Name="profileBorder" MouseUp="profileBorder_MouseUp">
+                    <Image Margin="12" Source="/Resources/Images/icons8-male-user-96.png"></Image>
+                </Border>
+                <Border Grid.Column="1"
+                        Margin="0 16"
+                    Width="72"
+                    Height="72"
+                    Background="#BA504C4C"
+                    CornerRadius="16"
+                    Cursor="Hand"
+                    Name="gasStationsBorder" MouseUp="gasStationsBorder_MouseUp">
+                    <Image Margin="12" Source="/Resources/Images/icons8-gas-station-52.png"></Image>
+                </Border>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>

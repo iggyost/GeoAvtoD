@@ -1,0 +1,309 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Хранилище GeoAvtoDbModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Cards">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="card_number" Type="nvarchar" MaxLength="19" Nullable="false" />
+          <Property Name="cvv_code" Type="nvarchar" MaxLength="3" Nullable="false" />
+          <Property Name="card_date" Type="nvarchar" MaxLength="5" />
+          <Property Name="cardtypes_id" Type="int" Nullable="false" />
+          <Property Name="user_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CardTypes">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Searches">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="address_start" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="address_finish" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="route_time" Type="float" Nullable="false" />
+          <Property Name="route_distance" Type="float" Nullable="false" />
+          <Property Name="time_finish" Type="datetime" Nullable="false" />
+          <Property Name="user_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="80" Nullable="false" />
+          <Property Name="login" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="password" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Cards_CardTypes">
+          <End Role="CardTypes" Type="Self.CardTypes" Multiplicity="1" />
+          <End Role="Cards" Type="Self.Cards" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CardTypes">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Cards">
+              <PropertyRef Name="cardtypes_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Cards_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Cards" Type="Self.Cards" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Cards">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Searches_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Searches" Type="Self.Searches" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Searches">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище GeoAvtoDbModelContainer">
+          <EntitySet Name="Cards" EntityType="Self.Cards" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CardTypes" EntityType="Self.CardTypes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Searches" EntityType="Self.Searches" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Cards_CardTypes" Association="Self.FK_Cards_CardTypes">
+            <End Role="CardTypes" EntitySet="CardTypes" />
+            <End Role="Cards" EntitySet="Cards" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Cards_Users" Association="Self.FK_Cards_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Cards" EntitySet="Cards" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Searches_Users" Association="Self.FK_Searches_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Searches" EntitySet="Searches" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="GeoAvtoDbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="GeoAvtoDbEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="CardTypes" EntityType="GeoAvtoDbModel.CardTypes" />
+          <EntitySet Name="Searches" EntityType="GeoAvtoDbModel.Searches" />
+          <EntitySet Name="sysdiagrams" EntityType="GeoAvtoDbModel.sysdiagrams" />
+          <EntitySet Name="Users" EntityType="GeoAvtoDbModel.Users" />
+          <AssociationSet Name="FK_Searches_Users" Association="GeoAvtoDbModel.FK_Searches_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Searches" EntitySet="Searches" />
+          </AssociationSet>
+          <EntitySet Name="Cards" EntityType="GeoAvtoDbModel.Cards" />
+          <AssociationSet Name="FK_Cards_CardTypes" Association="GeoAvtoDbModel.FK_Cards_CardTypes">
+            <End Role="CardTypes" EntitySet="CardTypes" />
+            <End Role="Cards" EntitySet="Cards" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Cards_Users" Association="GeoAvtoDbModel.FK_Cards_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Cards" EntitySet="Cards" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="CardTypes">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Cards" Relationship="GeoAvtoDbModel.FK_Cards_CardTypes" FromRole="CardTypes" ToRole="Cards" />
+        </EntityType>
+        <EntityType Name="Searches">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="address_start" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="address_finish" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="route_time" Type="Double" Nullable="false" />
+          <Property Name="route_distance" Type="Double" Nullable="false" />
+          <Property Name="time_finish" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="user_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Users" Relationship="GeoAvtoDbModel.FK_Searches_Users" FromRole="Searches" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="80" FixedLength="false" Unicode="true" />
+          <Property Name="login" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Searches" Relationship="GeoAvtoDbModel.FK_Searches_Users" FromRole="Users" ToRole="Searches" />
+          <NavigationProperty Name="Cards" Relationship="GeoAvtoDbModel.FK_Cards_Users" FromRole="Users" ToRole="Cards" />
+        </EntityType>
+        <Association Name="FK_Searches_Users">
+          <End Type="GeoAvtoDbModel.Users" Role="Users" Multiplicity="1" />
+          <End Type="GeoAvtoDbModel.Searches" Role="Searches" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Searches">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Cards">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="card_number" Type="String" Nullable="false" MaxLength="19" FixedLength="false" Unicode="true" />
+          <Property Name="cvv_code" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="true" />
+          <Property Name="card_date" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="cardtypes_id" Type="Int32" Nullable="false" />
+          <Property Name="user_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="CardTypes" Relationship="GeoAvtoDbModel.FK_Cards_CardTypes" FromRole="Cards" ToRole="CardTypes" />
+          <NavigationProperty Name="Users" Relationship="GeoAvtoDbModel.FK_Cards_Users" FromRole="Cards" ToRole="Users" />
+        </EntityType>
+        <Association Name="FK_Cards_CardTypes">
+          <End Type="GeoAvtoDbModel.CardTypes" Role="CardTypes" Multiplicity="1" />
+          <End Type="GeoAvtoDbModel.Cards" Role="Cards" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CardTypes">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Cards">
+              <PropertyRef Name="cardtypes_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Cards_Users">
+          <End Type="GeoAvtoDbModel.Users" Role="Users" Multiplicity="1" />
+          <End Type="GeoAvtoDbModel.Cards" Role="Cards" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Cards">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище GeoAvtoDbModelContainer" CdmEntityContainer="GeoAvtoDbEntities">
+          <EntitySetMapping Name="CardTypes">
+            <EntityTypeMapping TypeName="GeoAvtoDbModel.CardTypes">
+              <MappingFragment StoreEntitySet="CardTypes">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Searches">
+            <EntityTypeMapping TypeName="GeoAvtoDbModel.Searches">
+              <MappingFragment StoreEntitySet="Searches">
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="time_finish" ColumnName="time_finish" />
+                <ScalarProperty Name="route_distance" ColumnName="route_distance" />
+                <ScalarProperty Name="route_time" ColumnName="route_time" />
+                <ScalarProperty Name="address_finish" ColumnName="address_finish" />
+                <ScalarProperty Name="address_start" ColumnName="address_start" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="GeoAvtoDbModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="GeoAvtoDbModel.Users">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="login" ColumnName="login" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cards">
+            <EntityTypeMapping TypeName="GeoAvtoDbModel.Cards">
+              <MappingFragment StoreEntitySet="Cards">
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="cardtypes_id" ColumnName="cardtypes_id" />
+                <ScalarProperty Name="card_date" ColumnName="card_date" />
+                <ScalarProperty Name="cvv_code" ColumnName="cvv_code" />
+                <ScalarProperty Name="card_number" ColumnName="card_number" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,107 @@
+﻿<Window x:Class="GeoAvto.View.Windows.PaymentWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GeoAvto.View.Windows"
+        mc:Ignorable="d"
+        Title="PaymentWindow" Height="800" Width="800"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Image Source="/Resources/Images/map.png"
+               Stretch="Fill">
+            <Image.Effect>
+                <BlurEffect Radius="11"/>
+            </Image.Effect>
+        </Image>
+        <Rectangle Fill="Black"
+                   Opacity="0.5"></Rectangle>
+        <Grid Margin="16">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="64"></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <TextBlock Style="{StaticResource headerTextStyle}">Оплата</TextBlock>
+            <Grid Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition Width="32"></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <TextBlock Style="{StaticResource mediumTextStyle}"
+                           HorizontalAlignment="Right">Выберите карту:</TextBlock>
+                <ComboBox Grid.Column="2"
+                          Width="280"
+                          HorizontalAlignment="Left"
+                          FontSize="24"
+                          Name="cardCb"
+                          DisplayMemberPath="card_number"
+                          VerticalAlignment="Center"></ComboBox>
+                <TextBlock Style="{StaticResource mediumTextStyle}"
+                           HorizontalAlignment="Right"
+                           Grid.Row="1">Октановое число:</TextBlock>
+                <Grid Grid.Row="1"
+                      Grid.Column="2"
+                      Margin="0 24">
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="32"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Viewbox>
+                        <RadioButton Name="fuelLowRdbtn" GroupName="fuel" Checked="fuelLowRdbtn_Checked"></RadioButton>
+                    </Viewbox>
+                    <TextBlock Grid.Column="1"
+                               Style="{StaticResource mediumTextStyle}"
+                               HorizontalAlignment="Left"
+                               Margin="16 0">- 92</TextBlock>
+                    <Viewbox Grid.Row="1">
+                        <RadioButton Name="fuelMedRdbtn" GroupName="fuel" Checked="fuelMedRdbtn_Checked"></RadioButton>
+                    </Viewbox>
+                    <TextBlock Grid.Column="1"
+                               Grid.Row="1"
+                               HorizontalAlignment="Left"
+                               Margin="16 0"
+                               Style="{StaticResource mediumTextStyle}">- 95</TextBlock>
+                </Grid>
+                <TextBlock Style="{StaticResource mediumTextStyle}"
+                           HorizontalAlignment="Right"
+                           Grid.Row="2">Литров бензина:</TextBlock>
+                <Slider Grid.Column="2"
+                        Grid.Row="2"
+                        Name="litersSlider"
+                        VerticalAlignment="Center" 
+                        Maximum="150" 
+                        Minimum="1" 
+                        ValueChanged="litersSlider_ValueChanged" 
+                        Loaded="litersSlider_Loaded" 
+                        SmallChange="1" 
+                        Value="1"></Slider>
+                <TextBlock Style="{StaticResource mediumTextStyle}"
+                           Grid.Row="3"
+                           Name="litersTbl"
+                           Text="{Binding ElementName=litersSlider, Path=Value, StringFormat={}0 л.}"></TextBlock>
+                <TextBlock Style="{StaticResource mediumTextStyle}"
+                           Grid.Column="2"
+                           Grid.Row="3"
+                           Name="costTbl"></TextBlock>
+                <Button Grid.Row="4"
+                        Name="cancelBtn" Click="cancelBtn_Click">Отмена</Button>
+                <Button Grid.Row="4"
+                        Grid.Column="2"
+                        Name="payBtn" Click="payBtn_Click">Оплатить</Button>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>
