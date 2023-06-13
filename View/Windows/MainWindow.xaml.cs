@@ -41,9 +41,9 @@ namespace GeoAvto.View.Windows
         public MainWindow()
         {
             InitializeComponent();
-            GMap.NET.GMaps.Instance.Mode = GMap.NET.AccessMode.ServerAndCache; //выбор подгрузки карты – онлайн или из ресурсов
+            GMap.NET.GMaps.Instance.Mode = GMap.NET.AccessMode.CacheOnly; //выбор подгрузки карты – онлайн или из ресурсов
             gMapControl1.MapProvider = GMap.NET.MapProviders.OpenStreetMapProvider.Instance; //какой провайдер карт используется (в нашем случае гугл) 
-            gMapControl1.MinZoom = 2; //минимальный зум
+            gMapControl1.MinZoom = 11; //минимальный зум
             gMapControl1.MaxZoom = 16; //максимальный зум
             gMapControl1.Zoom = 11; // какой используется зум при открытии
             gMapControl1.Position = new GMap.NET.PointLatLng(55.7348, 37.5849);// точка в центре карты при открытии (Москва)
@@ -52,6 +52,7 @@ namespace GeoAvto.View.Windows
             gMapControl1.DragButton = MouseButton.Left; // какой кнопкой осуществляется перетаскивание
             gMapControl1.ShowCenter = false; //показывать или скрывать красный крестик в центре
             gMapControl1.ShowTileGridLines = false; //показывать или скрывать тайлы
+            gMapControl1.CacheLocation = @"C:\Users\igoro\AppData\Local\GMap.NET";
         }
         // сериализация карты, использовать однократно только при смене источника карты на новый!!!
         //var routerDb = new RouterDb();
